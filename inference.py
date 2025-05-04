@@ -8,8 +8,8 @@ import torch
 import torch.nn.functional as F
 sys.path.append('third_party/Matcha-TTS')
 from hyperpyyaml import load_hyperpyyaml
-from cosyvoice.cli.frontend import CosyVoiceFrontEnd
-from cosyvoice.bin.train import load_model
+from MPFM.cli.frontend import MPFMFrontEnd
+from MPFM.bin.train import load_model
 from omegaconf import OmegaConf
 from scipy.io.wavfile import write
 from bigvgan.model.generator import Generator
@@ -37,7 +37,7 @@ def load_bigv_model(checkpoint_path, model):
 
 
 def init_model(ckpt_path,device):
-    with open('conf/cosyvoice.yaml', 'r') as f:
+    with open('conf/MPFM.yaml', 'r') as f:
         configs = load_hyperpyyaml(f)
     time1 = time.perf_counter()
     model_flow = configs['flow']
@@ -61,7 +61,7 @@ def init_model(ckpt_path,device):
     bigvgan_model.to(device)
     time4 = time.perf_counter()
     print("BIGVGAN模型读取：", time4 - time3)
-    frontend = CosyVoiceFrontEnd(configs['get_tokenizer'],
+    frontend = MPFMFrontEnd(configs['get_tokenizer'],
                                  configs['feat_extractor'],
                                  'checkpoint/campplus.onnx',
                                  'checkpoint/speech_tokenizer_v1.onnx',
