@@ -1,6 +1,6 @@
 import pdb
 import librosa
-from cosyvoice.flow.flow import MaskedDiffWithXvec
+
 import torchaudio
 import os
 import sys
